@@ -2,6 +2,12 @@
 name = "ink-test-utils"
 version = "0.1.0"
 edition = "2021"
+authors = ["Kasper Ziemianek <kasper.ziemianek@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/kziemianek/ink-test-utils"
+description = "Utilities for testing ink smart contracts"
+keywords = ["ink"]
+
 
 [lib]
 proc-macro = true
