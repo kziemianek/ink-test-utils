@@ -18,30 +18,32 @@ mod foobar {
         }
 
         #[ink(message)]
-        pub fn foobar(&self) {}
+        pub fn foobar(&self) {
+            self.env().emit_event(FoobarHappened { index: 2 });
+        }
     }
 
+    #[cfg(test)]
     mod tests {
         use super::*;
+        use crate::foobar::Foobar;
         use ink_test_utils::assert_event;
 
         type Event = <Foobar as ::ink::reflect::ContractEventBase>::Type;
 
+        #[ink::test]
         pub fn test_dummy() {
-            let expected_index: u16 = 10;
-            let index: u16 = 5;
+            let expected_index: u16 = 2;
+            let foobar = Foobar::new();
+            foobar.foobar();
             assert_event! {
-                2: FoobarHappened (index) [
+                0: FoobarHappened (index) [
                     assert_eq!(
                          expected_index, index,
                         "encountered invalid FoobarHappened.index"
                     )
                 ]
-            };
+            }
         }
     }
-}
-
-fn main() {
-    println!("This is example")
 }
