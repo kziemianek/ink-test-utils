@@ -25,25 +25,14 @@ mod foobar {
 
     #[cfg(test)]
     mod tests {
-        use super::*;
         use crate::foobar::Foobar;
-        use ink_test_utils::assert_event;
-
-        type Event = <Foobar as ::ink::reflect::ContractEventBase>::Type;
+        use ink_test_utils::assert_events_len;
 
         #[ink::test]
         pub fn test() {
-            let expected_index: u16 = 2;
             let foobar = Foobar::new();
             foobar.foobar();
-            assert_event! {
-                0: FoobarHappened (index) [
-                    assert_eq!(
-                         expected_index, index,
-                        "encountered invalid FoobarHappened.index"
-                    )
-                ]
-            }
+            assert_events_len!(1)
         }
     }
 }
