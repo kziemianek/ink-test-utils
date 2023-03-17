@@ -35,7 +35,7 @@ pub fn assert_event_impl(input: TokenStream) -> TokenStream {
     let index = input.index;
     let event_name = input.event_name;
     let fields = input.fields;
-    let asserts = input.asserts;
+    let asserts = input.asserts.iter();
     let event_name_str = event_name.to_string();
     let expanded = quote! {
         let emitted_events = ink::env::test::recorded_events().collect::<Vec<_>>();
@@ -43,7 +43,7 @@ pub fn assert_event_impl(input: TokenStream) -> TokenStream {
         let decoded_event = <Event as scale::Decode>::decode(&mut &event.data[..])
             .expect("encountered invalid contract event data buffer");
         if let Event::#event_name(#event_name { #fields }) = decoded_event {
-            #asserts
+            #(#asserts);*
         } else {
             panic!("encountered unexpected event kind: expected a {} event", #event_name_str)
         }
