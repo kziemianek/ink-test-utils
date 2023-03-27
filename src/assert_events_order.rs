@@ -11,7 +11,7 @@ struct AssertEventsOrderInput {
 
 impl Parse for AssertEventsOrderInput {
     fn parse(input: ParseStream) -> syn::Result<Self> {
-        let mut content;
+        let content;
         bracketed!(content in input);
         let events = Punctuated::parse_terminated(&content)?;
         Ok(AssertEventsOrderInput { events })
