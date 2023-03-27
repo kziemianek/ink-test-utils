@@ -38,7 +38,7 @@ mod foobar {
             let foobar = Foobar::new();
             foobar.foobar();
             assert_event! {
-                0: FoobarHappened (index, len) [
+                0: FoobarHappened (index) [
                     assert_eq!(
                          expected_index, index,
                         "encountered invalid FoobarHappened.index"
