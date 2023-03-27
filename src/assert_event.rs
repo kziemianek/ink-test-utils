@@ -18,9 +18,9 @@ impl Parse for AssertEventInput {
         input.parse::<Token![:]>()?;
         let event_name: Ident = input.parse()?;
         parenthesized!(content in input);
-        let fields = content.parse_terminated(Type::parse)?;
+        let fields = Punctuated::parse_terminated(&content)?;
         bracketed!(content in input);
-        let asserts = content.parse_terminated(Type::parse)?;
+        let asserts = Punctuated::parse_terminated(&content)?;
         Ok(AssertEventInput {
             index,
             event_name,
